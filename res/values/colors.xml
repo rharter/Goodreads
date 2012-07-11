@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="ab_gradient_top">#e9e6d3</color>
+	<color name="ab_gradient_bottom">#f8f7f2</color>
+	<color name="ab_separator">#e3dfc9</color>
+</resources>

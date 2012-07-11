@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="GoodreadsTheme" parent="@android:style/Theme.Holo.Light">
+		<item name="android:actionBarStyle">@style/GoodreadsActionBar</item>
+	</style>
+
+	<style name="GoodreadsActionBar" parent="android:style/Widget.Holo.ActionBar">
+		<item name="android:background">@drawable/ab_background</item>
+	</style>
+
+</resources>
