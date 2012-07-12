@@ -8,7 +8,8 @@
 
   <application android:label="@string/app_name" 
 							 android:icon="@drawable/ic_launcher"
-							 android:theme="@style/GoodreadsTheme">
+							 android:theme="@style/GoodreadsTheme"
+							 android:hardwareAccelerated="true">
     <activity android:name="ShelfActivity"
               android:label="@string/app_name">
       <intent-filter>
@@ -16,5 +17,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+		<activity android:name="RibbonMenuActivity" android:theme="@style/RibbonMenuTheme"/>
   </application>
 </manifest>

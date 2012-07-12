@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/ribbon_menu_updates" android:title="Updates" android:icon="@drawable/ic_menu_friendslist"></item>
+    <item android:id="@+id/ribbon_menu_mybooks" android:title="My Books" android:icon="@drawable/ic_menu_mybooks"></item>
+		<item android:id="@+id/ribbon_menu_friends" android:title="Friends" android:icon="@drawable/ic_menu_friends"></item>
+    <item android:id="@+id/ribbon_menu_recommendations" android:title="Recommendations" android:icon="@drawable/ic_menu_recommendations"></item>
+    <item android:id="@+id/ribbon_menu_discussions" android:title="Discussions" android:icon="@drawable/ic_menu_discussions"></item>
+		
+</menu>
