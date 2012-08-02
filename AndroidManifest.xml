@@ -5,18 +5,23 @@
 					android:versionName="1.0">
 	<uses-sdk android:minSdkVersion="14"
 						android:targetSdkVersion="14" />
+	
+	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
   <application android:label="@string/app_name" 
 							 android:icon="@drawable/ic_launcher"
 							 android:theme="@style/GoodreadsTheme"
 							 android:hardwareAccelerated="true">
-    <activity android:name="ShelfActivity"
+    <activity android:name=".ui.ShelfActivity"
               android:label="@string/app_name">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-		<activity android:name="RibbonMenuActivity" android:theme="@style/RibbonMenuTheme"/>
+
+		<activity android:name=".ui.RibbonMenuActivity" android:theme="@style/RibbonMenuTheme"/>
+		
+		<activity android:name=".ui.LoginActivity" />
   </application>
 </manifest>
