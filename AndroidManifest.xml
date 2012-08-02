@@ -20,8 +20,6 @@
       </intent-filter>
     </activity>
 
-		<activity android:name=".ui.RibbonMenuActivity" android:theme="@style/RibbonMenuTheme"/>
-		
 		<activity android:name=".ui.LoginActivity" />
   </application>
 </manifest>

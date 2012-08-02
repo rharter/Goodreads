@@ -66,9 +66,6 @@ public class ShelfActivity extends Activity implements iRibbonMenuCallback
 	@Override
 	public void RibbonMenuItemClick(int itemId) {
 			
-			
-			
-			
 	}
 	
 	public void setUserId(String userId) {

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<style name="ActivityTheme" parent="@android:style/Theme.Holo.Light">
-		<item name="android:actionBarItemBackground">@drawable/ab_item_background</item>
-	</style>
-</resources>

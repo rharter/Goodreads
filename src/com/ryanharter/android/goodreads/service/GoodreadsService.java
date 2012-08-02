@@ -1,5 +1,10 @@
 package com.ryanharter.android.goodreads.service;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 public class GoodreadsService
@@ -11,6 +16,21 @@ public class GoodreadsService
 			new CommonsHttpOAuthConsumer(API_KEY, API_SECRET);
 	
 	private static boolean sAuthenticated = false;
+	
+	/**
+	 * Gets the id of the user who authorized OAuth
+	 * 
+	 * Get a xml file with the Goodreads user_id for the user 
+	 * who authorized access using OAuth. http://www.goodreads.com/api#auth.user
+	 */
+	public static String getAuthorizedUser() throws Exception {
+		HttpGet get = new HttpGet("http://www.goodreads.com/api/auth_user");
+		sConsumer.sign(get);
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpResponse response = httpClient.execute(get);
+		
+		return "response.getEntity().getContent()";
+	}
 	
 	private static void setAuthenticated(boolean authenticated) {
 		GoodreadsService.sAuthenticated = authenticated;
