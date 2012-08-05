@@ -2,31 +2,28 @@ package com.ryanharter.android.goodreads.ui;
 
 import com.ryanharter.android.goodreads.R;
 import com.ryanharter.android.goodreads.service.*;
-import com.ryanharter.android.goodreads.ui.fragments.NavigationFragment;
-import com.ryanharter.lib.ui.HiddenFragmentActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageButton;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class ShelfActivity extends HiddenFragmentActivity
+public class UpdatesActivity extends BaseNavActivity
 {
-	private final static String TAG = "ShelfActivity";
+	private final static String TAG = "UpdatesActivity";
 	private final static int LOGIN_CODE = 1;
 	
 	private String mUserId;
+	
+	private ListView listview;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setHiddenFragment(new NavigationFragment());
 		setContentView(R.layout.activity_updates);
 		
 		SharedPreferences sharedPreferences = getSharedPreferences("com.ryanharter.android.goodreads", MODE_PRIVATE);
@@ -34,17 +31,6 @@ public class ShelfActivity extends HiddenFragmentActivity
 		String tokenSecret = sharedPreferences.getString("tokenSecret", "");
 		setUserId(sharedPreferences.getString("userId", ""));
 
-		ImageButton navButton = (ImageButton) findViewById(R.id.action_bar_home);
-		navButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Log.d(TAG, "Clicked...");
-				toggle();
-			}
-
-		});
-		
 		// If the user hasn't authenticated, load login view
 		Log.d(TAG, "Authorized with token[" + token + "] and secret[" + tokenSecret + "]");
 		if (token == "" || token == null) {
@@ -53,19 +39,14 @@ public class ShelfActivity extends HiddenFragmentActivity
 		} else {
 			GoodreadsService.setTokenWithSecret(token, tokenSecret);
 		}
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
-		switch (item.getItemId()) 
-			{
-			case android.R.id.home:
-				toggle();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-			}
+		
+		listview = (ListView) findViewById(R.id.list);
+		
+		String[] updates = { "Update 1", "Update 2", "Update 3", "Update 4" };
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, updates);
+		
+		listview.setAdapter(adapter);
 	}
 	
 	public void setUserId(String userId) {

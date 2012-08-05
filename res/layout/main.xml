@@ -2,16 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+		android:background="#000000"
     >
-<TextView
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:text="Updates go here :)"
-    />
 
-  <com.darvds.ribbonmenu.RibbonMenuView
-			android:id="@+id/ribbonMenuView"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent" />
+	<include layout="@layout/action_bar" />
+
+	<ListView android:id="@+id/list"
+		android:layout_width="fill_parent" 
+		android:layout_height="fill_parent"/>
 </FrameLayout>
 

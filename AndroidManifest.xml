@@ -12,7 +12,7 @@
 							 android:icon="@drawable/ic_launcher"
 							 android:theme="@style/GoodreadsTheme"
 							 android:hardwareAccelerated="true">
-    <activity android:name=".ui.ShelfActivity"
+    <activity android:name=".ui.UpdatesActivity"
               android:label="@string/app_name">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
