@@ -1,7 +1,7 @@
 package com.ryanharter.android.goodreads.ui;
 
 import com.ryanharter.android.goodreads.R;
-import com.ryanharter.android.goodreads.service.*;
+import com.goodreads.api.v1.*;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,8 +31,9 @@ public class UpdatesActivity extends BaseNavActivity
 		String tokenSecret = sharedPreferences.getString("tokenSecret", "");
 		setUserId(sharedPreferences.getString("userId", ""));
 
+		GoodreadsService.init(token, tokenSecret);
+
 		// If the user hasn't authenticated, load login view
-		Log.d(TAG, "Authorized with token[" + token + "] and secret[" + tokenSecret + "]");
 		if (token == "" || token == null) {
 			Intent loginIntent = new Intent(this, LoginActivity.class);
 			startActivityForResult(loginIntent, LOGIN_CODE);

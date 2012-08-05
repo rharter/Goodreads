@@ -1,14 +1,18 @@
 package com.ryanharter.android.goodreads.ui.fragments;
 
 import com.ryanharter.android.goodreads.R;
+import com.ryanharter.android.goodreads.adapters.NavigationAdapter.NavigationItem;
 import com.ryanharter.android.goodreads.adapters.NavigationAdapter;
+import com.ryanharter.android.goodreads.ui.*;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 
 public class NavigationFragment extends ListFragment {
 	
@@ -34,12 +38,21 @@ public class NavigationFragment extends ListFragment {
 	private ListAdapter getAdapter() {
 		NavigationAdapter ret = new NavigationAdapter(getActivity());
 		
-		ret.add("Updates", R.drawable.ic_menu_updates);
-		ret.add("Shelves", R.drawable.ic_menu_mybooks);
-		ret.add("Friends", R.drawable.ic_menu_friends);
-		ret.add("Recommendations", R.drawable.ic_menu_recommendations);
-		ret.add("Discussions", R.drawable.ic_menu_discussions);
+		ret.add(UPDATES, R.drawable.ic_menu_updates);
+		ret.add(SHELVES, R.drawable.ic_menu_mybooks);
+		ret.add(FRIENDS, R.drawable.ic_menu_friends);
+		ret.add(RECOMMENDATIONS, R.drawable.ic_menu_recommendations);
+		ret.add(DISCUSSIONS, R.drawable.ic_menu_discussions);
 		
 		return ret;
+	}
+	
+	@Override
+	public void onListItemClick (ListView l, View v, int position, long id) {
+		NavigationItem item = (NavigationItem) getListAdapter().getItem(position);
+		if (item.name == SHELVES) {
+			Intent intent = new Intent(getActivity(), ViewUserActivity.class);
+			getActivity().startActivity(intent);
+		}
 	}
 }
