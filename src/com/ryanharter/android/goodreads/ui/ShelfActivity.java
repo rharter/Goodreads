@@ -1,7 +1,7 @@
 package com.ryanharter.android.goodreads.ui;
 
+import com.goodreads.api.v1.GoodreadsService;
 import com.ryanharter.android.goodreads.R;
-import com.ryanharter.android.goodreads.service.*;
 import com.ryanharter.android.goodreads.ui.fragments.NavigationFragment;
 import com.ryanharter.lib.ui.HiddenFragmentActivity;
 
@@ -10,8 +10,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View;
 import android.widget.ImageButton;
 
 public class ShelfActivity extends HiddenFragmentActivity

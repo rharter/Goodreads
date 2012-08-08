@@ -1,7 +1,6 @@
 package com.ryanharter.android.goodreads.ui;
 
 import com.ryanharter.android.goodreads.R;
-import com.ryanharter.android.goodreads.service.*;
 import com.ryanharter.android.goodreads.ui.fragments.NavigationFragment;
 import com.ryanharter.lib.ui.HiddenFragmentActivity;
 
@@ -13,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public abstract class BaseNavActivity extends HiddenFragmentActivity
 {
@@ -39,5 +40,20 @@ public abstract class BaseNavActivity extends HiddenFragmentActivity
 			}
 
 		});
+	}
+	
+	/**
+	 * Sets the title for the action bar. This defaults to the 
+	 * Goodreads logo.
+	 *
+	 * @param title The title to set.
+	 */
+	protected void setTitle(String title) {
+		ImageView logo = (ImageView) findViewById(R.id.action_bar_logo);
+		logo.setVisibility(View.GONE);
+		
+		TextView titleView = (TextView) findViewById(R.id.action_bar_title);
+		titleView.setText(title);
+		titleView.setVisibility(View.VISIBLE);
 	}
 }

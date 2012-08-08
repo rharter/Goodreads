@@ -50,6 +50,19 @@ public class UpdatesActivity extends BaseNavActivity
 		listview.setAdapter(adapter);
 	}
 	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			String token = data.getStringExtra("com.ryanharter.android.goodreads.token");
+			String tokenSecret = data.getStringExtra("com.ryanharter.android.goodreads.tokenSecret");
+			setUserId(data.getStringExtra("com.ryanharter.android.goodreads.userId"));
+			
+			if (token != null && token != "") {
+				GoodreadsService.setTokenWithSecret(token, tokenSecret);
+			}
+		}
+	}
+	
 	public void setUserId(String userId) {
 		this.mUserId = userId;
 	}
