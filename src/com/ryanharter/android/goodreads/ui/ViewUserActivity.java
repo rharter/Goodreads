@@ -6,6 +6,7 @@ import com.ryanharter.android.goodreads.R;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.util.Log;
 
 public class ViewUserActivity extends BaseNavActivity
 {
@@ -42,12 +43,14 @@ public class ViewUserActivity extends BaseNavActivity
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			Log.d(TAG, "Got user: " + mUser.toString());
 			return mUser;
 		}
 		
 		@Override
 		protected void onPostExecute(User user) {
 			TextView name = (TextView) findViewById(R.id.name);
+			Log.d(TAG, "Setting username: " + mUser.getName());
 			name.setText(mUser.getName());
 			
 			TextView about = (TextView) findViewById(R.id.about);

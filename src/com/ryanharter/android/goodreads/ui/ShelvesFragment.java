@@ -1,0 +1,81 @@
+package com.ryanharter.android.goodreads.ui;
+
+import java.util.List;
+
+import com.goodreads.api.v1.GoodreadsService;
+import com.goodreads.api.v1.UserShelf;
+import com.ryanharter.android.goodreads.R;
+import com.ryanharter.android.goodreads.adapters.ShelvesAdapter;
+
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class ShelvesFragment extends ListFragment {
+	private static final String TAG = "ShelvesFragment";
+	private static final String USER_KEY = "USER_ID";
+	
+	private String mUserId;
+	
+	public ShelvesFragment() {
+		super();
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		if (savedInstanceState != null) {
+			mUserId = savedInstanceState.getString(USER_KEY);
+		}
+		
+		Log.d(TAG, "Creating new ShelvesFragment for user: " + mUserId);
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString(USER_KEY, mUserId);
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_shelves, container, false);
+		
+		new GetShelvesTask().execute();
+		
+		return view;
+	}
+	
+	public void setUserId(String userId) {
+		mUserId = userId;
+	}
+	
+	public String getUserId() {
+		return mUserId;
+	}
+	
+	public class GetShelvesTask extends AsyncTask<Void, Void, List<UserShelf>> {
+		
+		protected List<UserShelf> doInBackground(Void... nothing) {
+			Log.d(TAG, "Getting shelves for user: " + mUserId);
+			List<UserShelf> shelves = null;
+			try {
+				shelves = GoodreadsService.getShelvesForUser(mUserId);
+			} catch (Exception e) {
+				Log.e(TAG, "Failed to get user shelves.", e);
+			}
+			return shelves;
+		}
+		
+		protected void onPostExecute(List<UserShelf> shelves) {
+			Log.d(TAG, "Got shelves: " + shelves.toString());
+			ShelvesAdapter adapter = new ShelvesAdapter(getActivity(), shelves);
+			getListView().setAdapter(adapter);
+		}
+	}
+}

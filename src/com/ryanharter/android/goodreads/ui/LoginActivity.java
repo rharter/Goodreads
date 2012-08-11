@@ -1,5 +1,8 @@
 package com.ryanharter.android.goodreads.ui;
 
+import org.scribe.model.Token;
+import org.scribe.model.Verifier;
+
 import com.goodreads.api.v1.GoodreadsService;
 import com.goodreads.api.v1.User;
 import com.ryanharter.android.goodreads.R;
@@ -13,28 +16,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import oauth.signpost.OAuth;
-import oauth.signpost.OAuthProvider;
-import oauth.signpost.basic.DefaultOAuthProvider;
-import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.exception.OAuthNotAuthorizedException;
 
 public class LoginActivity extends Activity
 {
 	private final static String TAG = "LoginActivity";
-	private final static String API_KEY = "3RATirCK1psi4YYZpoB96A";
-	private final static String API_SECRET = "WI2y6ZCYZxIanY6uzqNNuT9J88qqcGDXA4Y7WnKHiA";
-	private final static String CALLBACK = "oauth://goodreads";
-	private final static CommonsHttpOAuthConsumer sConsumer = new CommonsHttpOAuthConsumer(API_KEY, API_SECRET);
-	
-	private final static OAuthProvider sProvider = new DefaultOAuthProvider(
-			"http://www.goodreads.com/oauth/request_token",
-			"http://www.goodreads.com/oauth/access_token", 
-			"http://www.goodreads.com/oauth/authorize");
-	
 	private WebView webview;
 	
     /** Called when the activity is first created. */
@@ -52,46 +37,19 @@ public class LoginActivity extends Activity
 			public boolean shouldOverrideUrlLoading(WebView view, String url)
 			{
 				// Check for our custom callback protocol
-				Log.d(TAG, "Overriding url: " + url);
 				if (url.startsWith("oauth"))
 				{
+					Log.d(TAG, "Overriding url: " + url);
 					SharedPreferences sharedPreferences = getSharedPreferences("com.ryanharter.android.goodreads", MODE_PRIVATE);
-					String requestToken = sharedPreferences.getString("RequestToken", "");
-					String requestTokenSecret = sharedPreferences.getString("RequestTokenSecret", "");
+					String token = sharedPreferences.getString("RequestToken", "");
+					String tokenSecret = sharedPreferences.getString("RequestTokenSecret", "");
 					
 					// authorization complete
 					Uri uri = Uri.parse(url);
-					String oauthToken = uri.getQueryParameter(OAuth.OAUTH_TOKEN);
+					String oauthToken = uri.getQueryParameter("oauth_token");
 					
-					// Populate the token and token secret in the consumer
-					// Warning: Crazy shit can happen here
-					try {
-						sConsumer.setTokenWithSecret(requestToken, requestTokenSecret);
-						sProvider.retrieveAccessToken(sConsumer, oauthToken);
-					} catch (OAuthMessageSignerException e) {
-						
-					} catch (OAuthNotAuthorizedException e) {
-						
-					} catch (OAuthExpectationFailedException e) {
-						
-					} catch (OAuthCommunicationException e) {
-						
-					}
-					
-					String token = sConsumer.getToken();
-					String tokenSecret = sConsumer.getTokenSecret();
-					String userId = "";
-					Log.d(TAG, "Setting token[" + token + "]");
-					Log.d(TAG, "Setting secret[" + tokenSecret + "]");
-					GoodreadsService.setTokenWithSecret(token, tokenSecret);
-					
-					SharedPreferences.Editor editor = sharedPreferences.edit();
-					editor.putString("token", token);
-					editor.putString("tokenSecret", tokenSecret);
-					editor.commit();
-					
-					// Get the authorized user
-					new GetUserInfoTask(token, tokenSecret).execute();
+					Token requestToken = new Token(token, tokenSecret);
+					new GetAccessTokenTask(oauthToken, requestToken).execute();
 					return true;
 				}
 				
@@ -102,15 +60,46 @@ public class LoginActivity extends Activity
 		new GetAuthUrlTask().execute();
     }
 
+	private class GetAccessTokenTask extends AsyncTask<Void, Void, Token> {
+		
+		private String mOauthToken;
+		private Token mRequestToken;
+
+		public GetAccessTokenTask(String oauthToken, Token requestToken) {
+			super();
+			mOauthToken = oauthToken;
+			mRequestToken = requestToken;
+		}
+		
+		protected Token doInBackground(Void... something) {
+			return GoodreadsService.getAccessToken(mOauthToken, mRequestToken);
+		}
+		
+		protected void onPostExecute(Token accessToken) {
+			Log.d(TAG, "Setting token[" + accessToken.getToken() + "]");
+			Log.d(TAG, "Setting secret[" + accessToken.getSecret() + "]");
+			GoodreadsService.setAccessToken(accessToken);
+			
+			SharedPreferences sharedPreferences = getSharedPreferences("com.ryanharter.android.goodreads", MODE_PRIVATE);
+			SharedPreferences.Editor editor = sharedPreferences.edit();
+			editor.putString("accessToken", accessToken.getToken());
+			editor.putString("accessTokenSecret", accessToken.getSecret());
+			editor.commit();
+			
+			// Get the authorized user
+			new GetUserInfoTask(accessToken).execute();
+		}
+	}
+	
+
+
 	private class GetUserInfoTask extends AsyncTask<Void, Void, String> {
 		
-		private String mToken;
-		private String mSecret;
+		private Token mAccessToken;
 		
-		public GetUserInfoTask(String token, String secret) {
+		public GetUserInfoTask(Token accessToken) {
 			super();
-			mToken = token;
-			mSecret = secret;
+			mAccessToken = accessToken;
 		}
 		
 		protected String doInBackground(Void... something) {
@@ -126,10 +115,15 @@ public class LoginActivity extends Activity
 		}
 		
 		protected void onPostExecute(String userId) {
+			SharedPreferences sharedPreferences = getSharedPreferences("com.ryanharter.android.goodreads", MODE_PRIVATE);
+			SharedPreferences.Editor editor = sharedPreferences.edit();
+			editor.putString("userId", userId);
+			editor.commit();
+			
 			// Send the tokens back to the calling 
 			Intent tokens = new Intent();
-			tokens.putExtra("com.ryanharter.android.goodreads.token", mToken);
-			tokens.putExtra("com.ryanharter.android.goodreads.tokenSecret", mSecret);
+			tokens.putExtra("com.ryanharter.android.goodreads.token", mAccessToken.getToken());
+			tokens.putExtra("com.ryanharter.android.goodreads.tokenSecret", mAccessToken.getSecret());
 			tokens.putExtra("com.ryanharter.android.goodreads.userId", userId);
 			setResult(RESULT_OK, tokens);
 			
@@ -141,25 +135,16 @@ public class LoginActivity extends Activity
 		
 		protected String doInBackground(Void... something) {
 			// Set up the service and get request token
-			String authUrl = "";
-			try {
-				authUrl = sProvider.retrieveRequestToken(sConsumer, CALLBACK);
-			} catch (OAuthMessageSignerException e) {
-				Log.e(TAG, "OAuthMessageSignerException", e);
-			} catch (OAuthNotAuthorizedException e) {
-				Log.e(TAG, "OAuthNotAuthorizedException", e);
-			} catch (OAuthExpectationFailedException e) {
-				Log.e(TAG, "OAuthExpectationFailedException", e);
-			} catch (OAuthCommunicationException e) {
-				Log.e(TAG, "OAuthCommunicationException", e);
-			}
-			Log.d(TAG, "Got authUrl: " + authUrl);
+			Token requestToken = GoodreadsService.getRequestToken();
 			
 			SharedPreferences sharedPreferences = getSharedPreferences("com.ryanharter.android.goodreads", MODE_PRIVATE);
 			SharedPreferences.Editor editor = sharedPreferences.edit();
-			editor.putString("RequestToken", sConsumer.getToken());
-			editor.putString("RequestTokenSecret", sConsumer.getTokenSecret());
+			editor.putString("RequestToken", requestToken.getToken());
+			editor.putString("RequestTokenSecret", requestToken.getSecret());
 			editor.commit();
+			
+			String authUrl = GoodreadsService.getAuthorizationUrl(requestToken);
+			Log.d(TAG, "Auth url: " + authUrl);
 			
 			return authUrl;
 		}

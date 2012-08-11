@@ -1,7 +1,6 @@
 package com.ryanharter.android.goodreads.ui;
 
 import com.ryanharter.android.goodreads.R;
-import com.ryanharter.android.goodreads.ui.fragments.NavigationFragment;
 import com.ryanharter.lib.ui.HiddenFragmentActivity;
 
 import android.content.Intent;
