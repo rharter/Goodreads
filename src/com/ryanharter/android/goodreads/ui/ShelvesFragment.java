@@ -37,6 +37,12 @@ public class ShelvesFragment extends ListFragment {
 	}
 	
 	@Override
+	public void onStart() {
+		super.onStart();
+		new GetShelvesTask().execute();
+	}
+	
+	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putString(USER_KEY, mUserId);
@@ -44,11 +50,7 @@ public class ShelvesFragment extends ListFragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_shelves, container, false);
-		
-		new GetShelvesTask().execute();
-		
-		return view;
+		return inflater.inflate(R.layout.fragment_shelves, container, false);
 	}
 	
 	public void setUserId(String userId) {
@@ -62,7 +64,6 @@ public class ShelvesFragment extends ListFragment {
 	public class GetShelvesTask extends AsyncTask<Void, Void, List<UserShelf>> {
 		
 		protected List<UserShelf> doInBackground(Void... nothing) {
-			Log.d(TAG, "Getting shelves for user: " + mUserId);
 			List<UserShelf> shelves = null;
 			try {
 				shelves = GoodreadsService.getShelvesForUser(mUserId);
@@ -73,7 +74,6 @@ public class ShelvesFragment extends ListFragment {
 		}
 		
 		protected void onPostExecute(List<UserShelf> shelves) {
-			Log.d(TAG, "Got shelves: " + shelves.toString());
 			ShelvesAdapter adapter = new ShelvesAdapter(getActivity(), shelves);
 			getListView().setAdapter(adapter);
 		}

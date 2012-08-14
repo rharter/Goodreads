@@ -11,22 +11,13 @@
 	
 	<style name="list_title" parent="@android:style/TextAppearance.Large">
 		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_alignParentTop">true</item>
 		<item name="android:layout_alignParentLeft">true</item>
 		<item name="android:layout_toLeftOf">@id/count</item>
-		<item name="android:layout_above">@id/description</item>
 		<item name="android:layout_alignWithParentIfMissing">true</item>
 		<item name="android:gravity">center_vertical</item>
 		<item name="android:layout_margin">6dp</item>
-	</style>
-	<style name="list_description" parent="@android:style/TextAppearance.Medium">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_alignParentBottom">true</item>
-		<item name="android:layout_alignParentLeft">true</item>
-		<item name="android:layout_toLeftOf">@id/count</item>
-		<item name="android:gravity">center_vertical</item>
 	</style>
 	<style name="list_count" parent="@android:style/TextAppearance.Medium">
 		<item name="android:layout_width">wrap_content</item>

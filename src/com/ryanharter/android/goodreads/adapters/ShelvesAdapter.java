@@ -34,7 +34,6 @@ public class ShelvesAdapter extends ArrayAdapter<UserShelf> {
 			
 			shelfView = new ShelfView();
 			shelfView.name = (TextView) view.findViewById(R.id.name);
-			shelfView.description = (TextView) view.findViewById(R.id.description);
 			shelfView.count = (TextView) view.findViewById(R.id.count);
 			
 			view.setTag(shelfView);
@@ -45,13 +44,6 @@ public class ShelvesAdapter extends ArrayAdapter<UserShelf> {
 		UserShelf shelf = getItem(position);
 		shelfView.name.setText(shelf.getName());
 		
-		if (shelf.getDescription() != null || shelf.getDescription().length() == 0) {
-			shelfView.description.setText(shelf.getDescription());
-			shelfView.description.setVisibility(View.VISIBLE);
-		} else {
-			shelfView.description.setVisibility(View.GONE);
-		}
-		
 		shelfView.count.setText(Integer.toString(shelf.getBookCount()));
 		
 		return view;
@@ -59,7 +51,6 @@ public class ShelvesAdapter extends ArrayAdapter<UserShelf> {
 	
 	protected static class ShelfView {
 		protected TextView name;
-		protected TextView description;
 		protected TextView count;
 	}
 }
