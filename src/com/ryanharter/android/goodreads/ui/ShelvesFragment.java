@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 
 public class ShelvesFragment extends ListFragment {
 	private static final String TAG = "ShelvesFragment";
-	private static final String USER_KEY = "USER_ID";
 	
+	private List<UserShelf> mShelves;
 	private String mUserId;
 	
 	public ShelvesFragment() {
@@ -30,7 +30,8 @@ public class ShelvesFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		
 		if (savedInstanceState != null) {
-			mUserId = savedInstanceState.getString(USER_KEY);
+			mUserId = savedInstanceState.getString("userId");
+			mShelves = savedInstanceState.getSerializable("shelves");
 		}
 		
 		Log.d(TAG, "Creating new ShelvesFragment for user: " + mUserId);
@@ -45,7 +46,8 @@ public class ShelvesFragment extends ListFragment {
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putString(USER_KEY, mUserId);
+		outState.putString("userId", mUserId);
+		outState.putSerializable("shelves", mShelves);
 	}
 	
 	@Override
@@ -74,7 +76,9 @@ public class ShelvesFragment extends ListFragment {
 		}
 		
 		protected void onPostExecute(List<UserShelf> shelves) {
-			ShelvesAdapter adapter = new ShelvesAdapter(getActivity(), shelves);
+			mShelves = shelves;
+			
+			ShelvesAdapter adapter = new ShelvesAdapter(getActivity(), mShelves);
 			getListView().setAdapter(adapter);
 		}
 	}

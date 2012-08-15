@@ -15,6 +15,8 @@ public class MainActivity extends BaseNavActivity
 	private final static String TAG = "UpdatesActivity";
 	private final static int LOGIN_CODE = 1;
 	
+	private final static String FRAGMENT_KEY = "fragment";
+	
 	private String mUserId;
 	private int mFragmentId = NavigationFragment.UPDATES;
 
@@ -39,6 +41,11 @@ public class MainActivity extends BaseNavActivity
 		} else {
 			GoodreadsService.setAccessToken(token, tokenSecret);
 		}
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
 		
 		Fragment fragment = null;
 		switch (mFragmentId) {
@@ -53,6 +60,18 @@ public class MainActivity extends BaseNavActivity
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		ft.replace(R.id.main_container, fragment);
 		ft.commit();
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		mFragmentId = savedInstanceState.getInt(FRAGMENT_KEY);
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putInt(FRAGMENT_KEY, mFragmentId);
 	}
 	
 	@Override
