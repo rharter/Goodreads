@@ -5,6 +5,7 @@ import com.ryanharter.android.goodreads.R;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.ListView;
@@ -15,8 +16,7 @@ public class MainActivity extends BaseNavActivity
 	private final static int LOGIN_CODE = 1;
 	
 	private String mUserId;
-	
-	private ListView listview;
+	private int mFragmentId = NavigationFragment.UPDATES;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -40,8 +40,18 @@ public class MainActivity extends BaseNavActivity
 			GoodreadsService.setAccessToken(token, tokenSecret);
 		}
 		
+		Fragment fragment = null;
+		switch (mFragmentId) {
+			case NavigationFragment.SHELVES:
+				fragment = new ShelvesFragment();
+				break;
+			case NavigationFragment.UPDATES:
+			default:
+				fragment = new UpdatesFragment();
+		}
+		
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.main_container, new UpdatesFragment());
+		ft.replace(R.id.main_container, fragment);
 		ft.commit();
 	}
 	
@@ -64,5 +74,13 @@ public class MainActivity extends BaseNavActivity
 	
 	public String getUserId() {
 		return mUserId;
+	}
+	
+	public void setCurrentFragment(int fragmentId) {
+		mFragmentId = fragmentId;
+	}
+	
+	public int getCurrentFragment() {
+		return mFragmentId;
 	}
 }

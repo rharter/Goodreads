@@ -27,8 +27,8 @@ public class NavigationAdapter extends ArrayAdapter<NavigationAdapter.Navigation
 	/**
 	 * Adds a new navigation item by name and image id.
 	 */
-	public void add(String name, int imageResID) {
-		add(new NavigationItem(name, imageResID));
+	public void add(int id, String name, int imageResID) {
+		add(new NavigationItem(id, name, imageResID));
 	}
 	
 	/**
@@ -71,6 +71,7 @@ public class NavigationAdapter extends ArrayAdapter<NavigationAdapter.Navigation
 	 * Represents a navigation item
 	 */
 	public class NavigationItem {
+		public int id;
 		public int imageId;
 		public String name;
 		
@@ -78,7 +79,8 @@ public class NavigationAdapter extends ArrayAdapter<NavigationAdapter.Navigation
 		 * Creates a new Navigation item using the supplied
 		 * name and image, identified by resource id.
 		 */
-		public NavigationItem(String name, int imageResID) {
+		public NavigationItem(int id, String name, int imageResID) {
+			this.id = id;
 			this.imageId = imageResID;
 			this.name = name;
 		}

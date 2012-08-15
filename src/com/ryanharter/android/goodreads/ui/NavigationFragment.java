@@ -8,6 +8,7 @@ import com.ryanharter.android.goodreads.ui.*;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,11 @@ import android.support.v4.app.FragmentTransaction;
 
 public class NavigationFragment extends ListFragment {
 	
-	private final static String UPDATES = "Updates";
-	private final static String SHELVES = "Shelves";
-	private final static String FRIENDS = "Friends";
-	private final static String RECOMMENDATIONS = "Recommendations";
-	private final static String DISCUSSIONS = "Discussions";
+	public final static int UPDATES = 0;
+	public final static int SHELVES = 1;
+	public final static int FRIENDS = 2;
+	public final static int RECOMMENDATIONS = 3;
+	public final static int DISCUSSIONS = 4;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,13 @@ public class NavigationFragment extends ListFragment {
 	private ListAdapter getAdapter() {
 		NavigationAdapter ret = new NavigationAdapter(getActivity());
 		
-		ret.add(UPDATES, R.drawable.ic_menu_updates);
-		ret.add(SHELVES, R.drawable.ic_menu_mybooks);
-		ret.add(FRIENDS, R.drawable.ic_menu_friends);
-		ret.add(RECOMMENDATIONS, R.drawable.ic_menu_recommendations);
-		ret.add(DISCUSSIONS, R.drawable.ic_menu_discussions);
+		ret.add(UPDATES, getActivity().getString(R.string.updates), R.drawable.ic_menu_updates);
+		ret.add(SHELVES, getActivity().getString(R.string.shelves), R.drawable.ic_menu_mybooks);
+		ret.add(FRIENDS, getActivity().getString(R.string.friends), R.drawable.ic_menu_friends);
+		ret.add(RECOMMENDATIONS, getActivity().getString(R.string.recommendations), 
+				R.drawable.ic_menu_recommendations);
+		ret.add(DISCUSSIONS, getActivity().getString(R.string.discussions), 
+				R.drawable.ic_menu_discussions);
 		
 		return ret;
 	}
@@ -51,16 +54,33 @@ public class NavigationFragment extends ListFragment {
 	@Override
 	public void onListItemClick (ListView l, View v, int position, long id) {
 		NavigationItem item = (NavigationItem) getListAdapter().getItem(position);
-		if (item.name == SHELVES) {
-			String userId = ((MainActivity) getActivity()).getUserId();
-			ShelvesFragment fragment = new ShelvesFragment();
-			fragment.setUserId(userId);
-			
-			FragmentTransaction ft = getFragmentManager().beginTransaction();
-			ft.replace(R.id.main_container, fragment);
-			ft.addToBackStack(null);
-			ft.commit();
-			((BaseNavActivity) getActivity()).toggle();
+		MainActivity activity = (MainActivity) getActivity();
+		
+		// Just close the pane if the user selects the same fragment
+		if (item.id == activity.getCurrentFragment()) {
+			activity.toggle();
+			return;
 		}
+		
+		Fragment fragment;
+		switch (item.id) {
+			case SHELVES:
+				activity.setCurrentFragment(SHELVES);
+				
+				String userId = activity.getUserId();
+				fragment = new ShelvesFragment();
+				((ShelvesFragment) fragment).setUserId(userId);
+				break;
+			default:
+				activity.setCurrentFragment(UPDATES);
+				
+				fragment = new UpdatesFragment();
+		}
+		
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.replace(R.id.main_container, fragment);
+		ft.addToBackStack(null);
+		ft.commit();
+		((BaseNavActivity) getActivity()).toggle();
 	}
 }

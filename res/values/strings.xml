@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Goodreads</string>
+		
+		<string name="updates">Updates</string>
+		<string name="shelves">Shelves</string>
+		<string name="friends">Friends</string>
+		<string name="recommendations">Recommendation</string>
+		<string name="discussions">Discussions</string>
 </resources>
