@@ -31,7 +31,6 @@ public class ShelvesFragment extends ListFragment {
 		
 		if (savedInstanceState != null) {
 			mUserId = savedInstanceState.getString("userId");
-			mShelves = savedInstanceState.getSerializable("shelves");
 		}
 		
 		Log.d(TAG, "Creating new ShelvesFragment for user: " + mUserId);
@@ -47,7 +46,6 @@ public class ShelvesFragment extends ListFragment {
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putString("userId", mUserId);
-		outState.putSerializable("shelves", mShelves);
 	}
 	
 	@Override
