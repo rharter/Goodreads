@@ -65,7 +65,8 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
  		holder.name.setText(update.getActor().getName());
  		holder.action.setText(update.getActionText());
  		
- 		Log.d(TAG, "Loading image for url: " + update.getImageUrl());
+ 		mImageLoader.bind(this, holder.profileImage, update.getActor().getImageUrl());
+ 		
  	    mImageLoader.bind(holder.image, update.getImageUrl(), null);
  		
  		return v;
