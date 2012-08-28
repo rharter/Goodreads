@@ -51,7 +51,9 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
  			// Set up the holder
  			holder = new UpdateViewHolder();
  			holder.image = (ImageView) v.findViewById(R.id.image);
+ 			holder.profileImage = (ImageView) v.findViewById(R.id.profile_image);
  			holder.action = (TextView) v.findViewById(R.id.action);
+ 			holder.name = (TextView) v.findViewById(R.id.name);
  			
  			// Store the view holder
  			v.setTag(holder);
@@ -60,6 +62,7 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
  		}
  		
  		Update update = getItem(position);
+ 		holder.name.setText(update.getActor().getName());
  		holder.action.setText(update.getActionText());
  		
  		Log.d(TAG, "Loading image for url: " + update.getImageUrl());
@@ -70,6 +73,8 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
  	
  	private static class UpdateViewHolder {
  		public ImageView image;
+ 		public ImageView profileImage;
  		public TextView action;
+ 		public TextView name;
  	}
  }
