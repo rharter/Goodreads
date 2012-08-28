@@ -21,6 +21,7 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
 	private static final String TAG = "UpdatesAdapter";
 	
  	private Context mContext;
+ 	private ImageLoader mImageLoader;
 	
 	/**
 	 * Replaces the normal constructors and builds a new 
@@ -29,6 +30,7 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
  	public UpdatesAdapter(Context context, List<Update> updates) {	
  		super(context, 0);
  		mContext = context;
+ 		mImageLoader = new ImageLoader();
  		addAll(updates);
  	}
  	
@@ -60,9 +62,8 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
  		Update update = getItem(position);
  		holder.action.setText(update.getActionText());
  		
- 		ImageLoader imageLoader = new ImageLoader();
  		Log.d(TAG, "Loading image for url: " + update.getImageUrl());
- 		imageLoader.bind(this, holder.image, update.getImageUrl());
+ 	    mImageLoader.bind(holder.image, update.getImageUrl(), null);
  		
  		return v;
  	}
