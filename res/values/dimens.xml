@@ -3,4 +3,5 @@
 	<dimen name="action_bar_compat_height">45dp</dimen>
 	<dimen name="side_pane_width">240dp</dimen>
 	<dimen name="update_row_height">120dp</dimen>
+	<dimen name="update_image_width">70dp</dimen>
 </resources>

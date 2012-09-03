@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.text.Html;
 import android.util.Log;
 
 public class UpdatesAdapter extends ArrayAdapter<Update> {
@@ -63,11 +64,35 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
  		
  		Update update = getItem(position);
  		holder.name.setText(update.getActor().getName());
- 		holder.action.setText(update.getActionText());
+ 		holder.action.setText(Html.fromHtml(update.getActionText()));
  		
  		mImageLoader.bind(this, holder.profileImage, update.getActor().getImageUrl());
  		
- 	    mImageLoader.bind(holder.image, update.getImageUrl(), null);
+ 		String imageUrl = update.getImageUrl();
+ 		
+ 		if (imageUrl != null) {
+ 			int smallTag = -1;
+ 			char largeTag = 'l';
+ 			if (imageUrl.contains("/books/")) {
+		 		smallTag = imageUrl.lastIndexOf("s/");
+		 	} else if (imageUrl.contains("/authors/")) {
+		 		smallTag = imageUrl.lastIndexOf("p2/") + 1;
+		 		largeTag = '5';
+		 	}
+		 		
+		 	if (smallTag > 0) {
+		 		char[] chars = imageUrl.toCharArray();
+		 		chars[smallTag] = largeTag;
+		 		
+		 		imageUrl = new String(chars);
+		 	}
+	 	} else {
+	 		imageUrl = update.getImageUrl();
+	 	}
+ 		
+ 		Log.d(TAG, "Loading image: " + imageUrl);
+ 		
+ 		mImageLoader.bind(holder.image, imageUrl, null);
  		
  		return v;
  	}

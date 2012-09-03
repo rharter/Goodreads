@@ -2,32 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/update_row_height"
-		android:background="#eee">
+		android:background="#eee"
+		android:layout_marginTop="6dp">
 	
 	<ImageView android:id="@+id/image"
-			android:layout_width="match_parent"
+			android:layout_width="@dimen/update_image_width"
 			android:layout_height="match_parent"
-			android:layout_marginTop="3dp"
-			android:layout_marginLeft="3dp"
-			android:scaleType="centerCrop"/>
+			android:layout_alignParentLeft="true"
+			android:layout_margin="5dp"
+			android:scaleType="fitCenter"/>
 	
-	<ImageView android:id="@+id/profile_image"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_marginLeft="6dp"/>
-	
-	<TextView android:id="@+id/name"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_toRightOf="@id/profile_image"
-	        android:layout_marginLeft="4dp"
-	        android:textStyle="bold"/>
+    <ImageView android:id="@+id/profile_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_toRightOf="@id/image"
+            android:layout_marginLeft="6dp"/>
 
-	<TextView android:id="@+id/action"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:background="#fff"/>
+    <TextView android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/profile_image"
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold"/>
+
+    <TextView android:id="@+id/action"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_toRightOf="@id/image"
+		    android:layout_alignParentBottom="true"/>
 	
 </RelativeLayout>
