@@ -10,10 +10,12 @@ import com.ryanharter.android.goodreads.adapters.ShelvesAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.widget.ListView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v4.app.FragmentTransaction;
 
 public class ShelvesFragment extends ListFragment {
 	private static final String TAG = "ShelvesFragment";
@@ -51,6 +53,20 @@ public class ShelvesFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_shelves, container, false);
+	}
+	
+	@Override
+	public void onListItemClick (ListView l, View v, int position, long id) {
+		UserShelf shelf = mShelves.get(position);
+		
+		ShelfFragment fragment = new ShelfFragment();
+		fragment.setUserId(mUserId);
+		fragment.setShelfName(shelf.getName());
+		
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.replace(R.id.main_container, fragment);
+		ft.addToBackStack(null);
+		ft.commit();
 	}
 	
 	public void setUserId(String userId) {

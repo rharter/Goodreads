@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="120dp"
+	android:padding="3dp">
+	
+	<ImageView android:id="@+id/image"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_alignParentLeft="true"
+		android:scaleType="fitCenter"/>
+
+	<TextView android:id="@+id/pub_year"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:lines="1"
+		android:text="2011"/>
+	
+	<TextView android:id="@+id/title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@id/image"
+		android:layout_toLeftOf="@id/pub_year"
+		android:layout_alignParentTop="true"
+		android:textStyle="bold"/>
+
+	<TextView android:id="@+id/author"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/title"
+		android:layout_toRightOf="@id/image"
+		android:text="Ryan Harter"/>
+	
+	<TextView android:id="@+id/read_at"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@id/image"
+		android:layout_alignParentBottom="true"
+		android:lines="1"
+		android:text="Read Jun 26"/>
+	
+	<RatingBar android:id="@+id/rating"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentBottom="true"
+		style="?android:attr/ratingBarStyleSmall"
+		android:numStars="5"
+		android:rating="4"
+		android:isIndicator="true" />
+
+</RelativeLayout>
