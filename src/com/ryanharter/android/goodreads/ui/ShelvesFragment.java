@@ -52,7 +52,7 @@ public class ShelvesFragment extends ListFragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_shelves, container, false);
+		return inflater.inflate(R.layout.fragment_list_with_spinner, container, false);
 	}
 	
 	@Override

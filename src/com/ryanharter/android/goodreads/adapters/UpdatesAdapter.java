@@ -3,10 +3,10 @@ package com.ryanharter.android.goodreads.adapters;
 import java.util.List;
 
 import com.goodreads.api.v1.Update;
-
+import com.google.android.imageloader.ImageLoader;
 import com.ryanharter.android.goodreads.R;
 
-import com.google.android.imageloader.ImageLoader;
+import org.ocpsoft.pretty.time.PrettyTime;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -43,8 +43,6 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
  		View v = convertView;
  		UpdateViewHolder holder = null;
  		
- 		Log.d(TAG, "Getting view for position: " + position);
- 		
  		if (v == null) {
  			LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
  			v = inflater.inflate(R.layout.row_update, parent, false);
@@ -55,6 +53,7 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
  			holder.profileImage = (ImageView) v.findViewById(R.id.profile_image);
  			holder.action = (TextView) v.findViewById(R.id.action);
  			holder.name = (TextView) v.findViewById(R.id.name);
+ 			holder.updatedAt = (TextView) v.findViewById(R.id.updated_at);
  			
  			// Store the view holder
  			v.setTag(holder);
@@ -65,6 +64,10 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
  		Update update = getItem(position);
  		holder.name.setText(update.getActor().getName());
  		holder.action.setText(Html.fromHtml(update.getActionText()));
+ 		
+ 		// Pretty print the date
+ 		PrettyTime pt = new PrettyTime();
+ 		holder.updatedAt.setText(pt.format(update.getUpdatedAt()));
  		
  		mImageLoader.bind(this, holder.profileImage, update.getActor().getImageUrl());
  		
@@ -90,8 +93,6 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
 	 		imageUrl = update.getImageUrl();
 	 	}
  		
- 		Log.d(TAG, "Loading image: " + imageUrl);
- 		
  		mImageLoader.bind(holder.image, imageUrl, null);
  		
  		return v;
@@ -102,5 +103,6 @@ public class UpdatesAdapter extends ArrayAdapter<Update> {
  		public ImageView profileImage;
  		public TextView action;
  		public TextView name;
+ 		public TextView updatedAt;
  	}
  }
