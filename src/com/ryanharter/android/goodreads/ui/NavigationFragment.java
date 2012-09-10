@@ -79,7 +79,6 @@ public class NavigationFragment extends ListFragment {
 		
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		ft.replace(R.id.main_container, fragment);
-		ft.addToBackStack(null);
 		ft.commit();
 		((BaseNavActivity) getActivity()).toggle();
 	}
