@@ -35,10 +35,23 @@ public class UpdatesFragment extends ListFragment {
 		list.setDivider(resources.getDrawable(R.drawable.bg_tiles));
 		list.setDividerHeight(8);
 		
-		new GetUpdatesTask().execute();
+		if (mUpdates != null) {
+			createAdapter();
+		} else {
+			new GetUpdatesTask().execute();
+		}
 		
 		return view;
 	}
+    
+    private void createAdapter() {
+    	if (mUpdates != null) {
+    		mAdapter = new UpdatesAdapter(getActivity(), mUpdates);
+    		setListAdapter(mAdapter);
+    	} else {
+    		new GetUpdatesTask().execute();
+    	}
+    }
 	
 	public class GetUpdatesTask extends AsyncTask<Void, Void, List<Update>> {
 		
@@ -54,9 +67,7 @@ public class UpdatesFragment extends ListFragment {
 		
 		protected void onPostExecute(List<Update> updates) {
 			mUpdates = updates;
-			
-			mAdapter = new UpdatesAdapter(getActivity(), mUpdates);
-			setListAdapter(mAdapter);
+			createAdapter();
 		}
 	}
 }
