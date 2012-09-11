@@ -7,6 +7,7 @@ import com.goodreads.api.v1.GoodreadsService;
 import com.ryanharter.android.goodreads.R;
 import com.ryanharter.android.goodreads.adapters.UpdatesAdapter;
 
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -26,6 +27,13 @@ public class UpdatesFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_list_with_spinner, container, false);
+		
+		Resources resources = getActivity().getResources();
+		
+		// Style the list a little bit
+		ListView list = (ListView) view.findViewById(android.R.id.list);
+		list.setDivider(resources.getDrawable(R.drawable.bg_tiles));
+		list.setDividerHeight(8);
 		
 		new GetUpdatesTask().execute();
 		

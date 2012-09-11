@@ -7,6 +7,10 @@
 
 	<include layout="@layout/action_bar" />
 	
+	<ImageView android:layout_width="match_parent"
+		android:layout_height="2dp"
+		android:src="@drawable/list_item_bottom" />
+	
 	<FrameLayout
 		android:id="@+id/main_container"
 		android:layout_width="match_parent"
