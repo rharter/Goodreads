@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	
+	<!-- Title -->
+	<RelativeLayout android:id="@+id/title_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		background="#ccc">
+	
+		<ImageView android:id="@+id/cover_image"
+			android:layout_width="@dimen/update_image_width"
+			android:layout_height="match_parent"
+			android:layout_alignParentLeft="true"
+			android:scaleType="fitXY"
+			android:background="@color/image_placeholder" />
+		
+		<TextView android:id="@+id/title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@id/cover_image"
+			android:layout_alignParentTop="true"
+			android:textStyle="bold"
+			android:text="Snow Crash" />
+		
+		<TextView android:id="@+id/author"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@id/cover_image"
+			android:text="Neal Stephenson" />
+	
+		<ImageView android:id="@+id/title_border"
+			android:layout_width="match_parent"
+			android:layout_height="4dp"
+			android:layout_alignParentBottom="true"
+			android:layout_below="@id/cover_image"
+			android:src="@drawable/list_item_bottom" />
+	
+	</RelativeLayout>
+	
+	<ScrollView android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		andorid:background="@drawable/bg_tiles">
+		
+		<LinearLayout android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+	
+			<!-- Progress -->
+			<RelativeLayout android:id="@+id/progress_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="8dp"
+				android:background="#bbb">
+		
+				<TextView android:id="@+id/progress_header"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentTop="true"
+					android:layout_alignParentLeft="true"
+					android:text="@string/progress"
+					android:textStyle="bold" />
+				
+				<Button android:id="@+id/progress_update"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentRight="true"
+					android:layout_marginRight="4dp"
+					android:layout_marginTop="4dp"
+					android:text="@string/update" />
+				
+				<TextView android:id="@+id/progress"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_below="@id/progress_header"
+					android:text="36%"/>
+		
+				<ImageView android:layout_width="match_parent"
+					android:layout_height="4dp"
+					android:layout_alignParentBottom="true"
+					android:layout_below="@id/progress"
+					android:src="@drawable/list_item_bottom" />
+		
+			</RelativeLayout>
+			
+			<RelativeLayout android:id="@+id/bookshelf_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="8dp">
+				
+				<TextView android:id="@+id/bookshelf_header"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentTop="true"
+					android:layout_alignParentLeft="true"
+					android:text="@string/bookshelves"
+					android:textStyle="bold" />
+				
+				<Button android:id="@+id/bookshelf_button"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentTop="true"
+					android:layout_marginRight="4dp"
+					android:layout_marginTop="4dp"
+					android:text="@string/change" />
+				
+				<TextView android:id="@+id/shelves"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_below="@id/bookshelf_header"
+					android:text="Currently Reading" />
+			
+				<ImageView android:layout_width="match_parent"
+					android:layout_height="2dp"
+					android:layout_alignParentTop="true"
+					android:layout_above="@id/bookshelf_header"
+					android:src="@drawable/list_item_top" />
+				
+				<ImageView android:layout_width="match_parent"
+					android:layout_height="4dp"
+					android:layout_alignParentBottom="true"
+					android:layout_below="@id/shelves"
+					android:src="@drawable/list_item_bottom" />
+			
+			</RelativeLayout>
+	
+		</LinearLayout>
+	
+	</ScrollView>
+	
+</LinearLayout>
