@@ -52,35 +52,76 @@
 		<LinearLayout android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical">
-	
+			
+			<LinearLayout android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:background="#fff"
+				android:padding="4dp">
+				
+				<TextView android:id="@+id/description_header"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/description"
+					android:textSize="18sp"
+					android:textStyle="bold"
+					android:textAllCaps="true" />
+					
+				<TextView android:id="@+id/description"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="16sp"/>
+
+			</LinearLayout>
+				
+			<ImageView android:layout_width="match_parent"
+				android:layout_height="4dp"
+				android:layout_marginBottom="4dp"
+				android:src="@drawable/list_item_bottom" />
+				
 			<!-- Progress -->
 			<RelativeLayout android:id="@+id/progress_layout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginBottom="8dp"
-				android:background="#ccc">
+				android:background="#fff">
+			
+				<ImageView android:id="@+id/progress_border_top"
+					android:layout_width="match_parent"
+					android:layout_height="2dp"
+					android:layout_alignParentTop="true"
+					android:src="@drawable/list_item_top" />
 		
 				<TextView android:id="@+id/progress_header"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_alignParentTop="true"
+					android:layout_marginLeft="4dp"
 					android:layout_alignParentLeft="true"
+					android:layout_below="@id/progress_border_top"
 					android:text="@string/progress"
-					android:textSize="16sp"
-					android:textStyle="bold" />
+					android:textSize="18sp"
+					android:textStyle="bold"
+					android:textAllCaps="true" />
 				
 				<Button android:id="@+id/progress_update"
+					style="?android:attr/buttonStyleSmall"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
+					android:layout_height="30dp"
+					android:layout_margin="4dp"
 					android:layout_alignParentRight="true"
-					android:layout_marginRight="4dp"
-					android:layout_marginTop="4dp"
-					android:text="@string/update" />
+					android:layout_below="@id/progress_border_top"
+					android:text="@string/update"
+					android:background="@drawable/button"
+					android:paddingLeft="4dp"
+					android:paddingRight="4dp" />
 				
 				<TextView android:id="@+id/progress"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_below="@id/progress_header"
+					android:layout_below="@id/progress_update"
+					android:layout_alignParentLeft="true"
+					android:layout_margin="4dp"
+					android:textSize="16sp"
 					android:text="36%"/>
 		
 				<ImageView android:layout_width="match_parent"
@@ -95,7 +136,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginBottom="8dp"
-				android:background="#eee">
+				android:background="#fff">
 			
 				<ImageView android:id="@+id/bookshelf_border_top"
 					android:layout_width="match_parent"
@@ -129,7 +170,10 @@
 				<TextView android:id="@+id/shelves"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_below="@id/bookshelf_header" />
+					android:layout_below="@id/bookshelf_button"
+					android:layout_alignParentLeft="true"
+					android:layout_margin="4dp"
+					android:textSize="16sp" />
 				
 				<ImageView android:layout_width="match_parent"
 					android:layout_height="4dp"

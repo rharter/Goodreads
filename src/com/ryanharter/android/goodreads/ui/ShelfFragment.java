@@ -45,8 +45,9 @@ public class ShelfFragment extends ListFragment {
 		BookFragment fragment = new BookFragment(getActivity(), review);
 		
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+		                       android.R.anim.slide_out_right, android.R.anim.slide_in_left);
 		ft.replace(R.id.main_container, fragment);
-		ft.setCustomAnimations(android.R.anim.fade_in, 0, android.R.anim.fade_in, 0);
 		ft.addToBackStack(null);
 		ft.commit();
 	}

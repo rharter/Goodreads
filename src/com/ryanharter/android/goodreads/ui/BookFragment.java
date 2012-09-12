@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.text.Html;
 
 public class BookFragment extends Fragment {
 	private static final String TAG = "BookFragment";
@@ -60,12 +61,16 @@ public class BookFragment extends Fragment {
 		ImageView cover = (ImageView) v.findViewById(R.id.cover_image);
 		TextView title = (TextView) v.findViewById(R.id.title);
 		TextView author = (TextView) v.findViewById(R.id.author);
+		TextView description = (TextView) v.findViewById(R.id.description);
 		
 		title.setText(mReview.getBook().getTitle());
 		author.setText(mReview.getBook().getAuthors().get(0).getName());
+		description.setText(Html.fromHtml(mReview.getBook().getDescription()));
 		
 		// Loads the image
 		mImageLoader.bind(cover, mReview.getBook().getImageUrl(), null);
+		
+		
 		
 		// Setup the Bookshelves bar
 		TextView shelves = (TextView) v.findViewById(R.id.shelves);

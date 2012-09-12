@@ -41,7 +41,10 @@ public class ShelvesFragment extends ListFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		new GetShelvesTask().execute();
+		
+		if (mShelves == null) {
+			new GetShelvesTask().execute();
+		}
 	}
 	
 	@Override
@@ -64,6 +67,8 @@ public class ShelvesFragment extends ListFragment {
 		fragment.setShelfName(shelf.getName());
 		
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left,
+		                       android.R.anim.slide_out_right, android.R.anim.slide_in_left);
 		ft.replace(R.id.main_container, fragment);
 		ft.addToBackStack(null);
 		ft.commit();
