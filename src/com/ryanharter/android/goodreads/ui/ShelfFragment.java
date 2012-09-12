@@ -5,16 +5,19 @@ import java.util.List;
 import com.goodreads.api.v1.GoodreadsService;
 import com.goodreads.api.v1.Review;
 import com.goodreads.api.v1.Reviews;
+import com.goodreads.api.v1.Book;
 import com.ryanharter.android.goodreads.R;
 import com.ryanharter.android.goodreads.adapters.BooksAdapter;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 public class ShelfFragment extends ListFragment {
 	private static final String TAG = "ShelfFragment";
@@ -33,6 +36,19 @@ public class ShelfFragment extends ListFragment {
 			mUserId = savedInstanceState.getString("userId");
 			
 		}
+	}
+	
+	@Override
+	public void onListItemClick (ListView l, View v, int position, long id) {
+		Review review = mReviews.get(position);
+		
+		BookFragment fragment = new BookFragment(getActivity(), review);
+		
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.replace(R.id.main_container, fragment);
+		ft.setCustomAnimations(android.R.anim.fade_in, 0, android.R.anim.fade_in, 0);
+		ft.addToBackStack(null);
+		ft.commit();
 	}
 	
 	@Override
