@@ -53,33 +53,33 @@ public class NavigationFragment extends ListFragment {
 	
 	@Override
 	public void onListItemClick (ListView l, View v, int position, long id) {
-		NavigationItem item = (NavigationItem) getListAdapter().getItem(position);
-		MainActivity activity = (MainActivity) getActivity();
-		
-		// Just close the pane if the user selects the same fragment
-		if (item.id == activity.getCurrentFragment()) {
-			activity.toggle();
-			return;
-		}
-		
-		Fragment fragment;
-		switch (item.id) {
-			case SHELVES:
-				activity.setCurrentFragment(SHELVES);
-				
-				String userId = activity.getUserId();
-				fragment = new ShelvesFragment();
-				((ShelvesFragment) fragment).setUserId(userId);
-				break;
-			default:
-				activity.setCurrentFragment(UPDATES);
-				
-				fragment = new UpdatesFragment();
-		}
-		
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
-		ft.replace(R.id.main_container, fragment);
-		ft.commit();
-		((BaseNavActivity) getActivity()).toggle();
+		// NavigationItem item = (NavigationItem) getListAdapter().getItem(position);
+		// 	MainActivity activity = (MainActivity) getActivity();
+		// 	
+		// 	// Just close the pane if the user selects the same fragment
+		// 	if (item.id == activity.getCurrentFragment()) {
+		// 		activity.toggle();
+		// 		return;
+		// 	}
+		// 	
+		// 	Fragment fragment;
+		// 	switch (item.id) {
+		// 		case SHELVES:
+		// 			activity.setCurrentFragment(SHELVES);
+		// 			
+		// 			String userId = activity.getUserId();
+		// 			fragment = new ShelvesFragment();
+		// 			((ShelvesFragment) fragment).setUserId(userId);
+		// 			break;
+		// 		default:
+		// 			activity.setCurrentFragment(UPDATES);
+		// 			
+		// 			fragment = new UpdatesFragment();
+		// 	}
+		// 	
+		// 	FragmentTransaction ft = getFragmentManager().beginTransaction();
+		// 	ft.replace(R.id.main_container, fragment);
+		// 	ft.commit();
+		// 	((BaseNavActivity) getActivity()).toggle();
 	}
 }

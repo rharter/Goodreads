@@ -2,6 +2,7 @@
 <resources>
 	<dimen name="action_bar_compat_height">45dp</dimen>
 	<dimen name="side_pane_width">240dp</dimen>
+	<dimen name="side_pane_offset">44dp</dimen>
 	
 	<!-- Update Row -->
 	<dimen name="update_row_height">120dp</dimen>

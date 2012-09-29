@@ -5,10 +5,12 @@ import com.ryanharter.android.goodreads.R;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.ListView;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.FrameLayout;
 
 public class MainActivity extends BaseNavActivity
 {
@@ -16,16 +18,12 @@ public class MainActivity extends BaseNavActivity
 	private final static int LOGIN_CODE = 1;
 	
 	private final static String FRAGMENT_KEY = "fragment";
-	
-	private String mUserId;
-	private int mFragmentId = NavigationFragment.UPDATES;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 		
 		SharedPreferences sharedPreferences = getSharedPreferences("com.ryanharter.android.goodreads", MODE_PRIVATE);
 		String token = sharedPreferences.getString("accessToken", "");
@@ -85,21 +83,5 @@ public class MainActivity extends BaseNavActivity
 				GoodreadsService.setAccessToken(token, tokenSecret);
 			}
 		}
-	}
-	
-	public void setUserId(String userId) {
-		this.mUserId = userId;
-	}
-	
-	public String getUserId() {
-		return mUserId;
-	}
-	
-	public void setCurrentFragment(int fragmentId) {
-		mFragmentId = fragmentId;
-	}
-	
-	public int getCurrentFragment() {
-		return mFragmentId;
 	}
 }
